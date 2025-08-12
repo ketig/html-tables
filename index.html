@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development & Design Mentorship Session</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255, 255, 255, 0.1) 10deg 20deg);
+            animation: rotate 20s linear infinite;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .duration {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #34495e;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: #3498db;
+            box-shadow: inset 0 -3px 0 #2980b9;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .topic-section {
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+        }
+
+        .topic-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .topic-section h3 {
+            color: #34495e;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+            border-left: 4px solid #3498db;
+        }
+
+        .code-block::before {
+            content: 'CODE';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: #3498db;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise::before {
+            content: '💡 EXERCISE';
+            display: block;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .homework {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .homework::before {
+            content: '📚 HOMEWORK';
+            display: block;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .demo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-table th {
+            background: #3498db;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .demo-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .demo-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .demo-form {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 184, 148, 0.4);
+        }
+
+        .timeline {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-time {
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            min-width: 120px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+
+        .resources {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .resources h3 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .resources a {
+            color: #ddd6fe;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd6fe;
+            transition: all 0.3s ease;
+        }
+
+        .resources a:hover {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 6px;
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00b894, #55a3ff);
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .icon {
+            font-size: 1.2em;
+            margin-right: 0.5rem;
+        }
+
+        .demo-list {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .demo-list ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .demo-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ecf0f1;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .demo-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .timeline-time {
+                margin-bottom: 0.5rem;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>🚀 Web Development & Design Mentorship</h1>
+                <p>Master GitHub Desktop, Figma Design, and HTML Fundamentals</p>
+                <div class="duration">⏱️ 2 Hours Intensive Session</div>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">📋 Overview</button>
+            <button class="nav-tab" onclick="showTab('github')">🔧 GitHub Desktop</button>
+            <button class="nav-tab" onclick="showTab('figma')">🎨 Figma Design</button>
+            <button class="nav-tab" onclick="showTab('html')">📄 HTML Elements</button>
+            <button class="nav-tab" onclick="showTab('resources')">📚 Resources</button>
+        </nav>
+
+        <main class="content">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="topic-section">
+                    <h2><span class="icon">🎯</span>Session Overview</h2>
+                    <p>Welcome to our comprehensive 2-hour mentorship session! Today we'll cover three essential skills
+                        for modern web development: version control with GitHub Desktop, design prototyping with Figma,
+                        and fundamental HTML structures.</p>
+
+                    <div class="timeline">
+                        <h3>📅 Session Timeline</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-time">0:00-0:30</div>
+                            <div>GitHub Desktop fundamentals and setup</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">0:30-1:00</div>
+                            <div>Version control workflow and collaboration</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">1:00-1:30</div>
+                            <div>Figma design tool mastery</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">1:30-2:00</div>
+                            <div>HTML lists, tables, and forms</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%" id="progress"></div>
+                    </div>
+
+                    <h3>🎓 Learning Objectives</h3>
+                    <div class="demo-list">
+                        <ul>
+                            <li>Master GitHub Desktop interface and core features</li>
+                            <li>Understand version control workflows and collaboration</li>
+                            <li>Create professional designs using Figma</li>
+                            <li>Build semantic HTML lists, tables, and forms</li>
+                            <li>Apply modern CSS styling techniques</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Desktop Tab -->
+            <div id="github" class="tab-content">
+                <div class="topic-section">
+                    <h2><span class="icon">🔧</span>GitHub Desktop Mastery</h2>
+
+                    <h3>What is GitHub Desktop?</h3>
+                    <p>GitHub Desktop is a user-friendly graphical interface for Git version control, making it easy to
+                        manage repositories, track changes, and collaborate with others without command-line complexity.
+                    </p>
+
+                    <h3>🚀 Getting Started</h3>
+                    <div class="demo-list">
+                        <ul>
+                            <li>Download from desktop.github.com</li>
+                            <li>Sign in with your GitHub account</li>
+                            <li>Configure your name and email</li>
+                            <li>Choose your default editor</li>
+                        </ul>
+                    </div>
+
+                    <h3>🏗️ Core Concepts</h3>
+                    <table class="demo-table">
+                        <thead>
+                            <tr>
+                                <th>Term</th>
+                                <th>Definition</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Repository</strong></td>
+                                <td>A project folder tracked by Git</td>
+                                <td>Contains all project files and history</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Commit</strong></td>
+                                <td>A snapshot of changes</td>
+                                <td>Save progress with descriptive messages</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Branch</strong></td>
+                                <td>Parallel version of your project</td>
+                                <td>Develop features without affecting main code</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pull Request</strong></td>
+                                <td>Request to merge changes</td>
+                                <td>Collaborate and review code changes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="exercise">
+                        <strong>Exercise 1: Create Your First Repository</strong>
+                        <ol>
+                            <li>Open GitHub Desktop</li>
+                            <li>Click "Create a New Repository"</li>
+                            <li>Name it "my-first-project"</li>
+                            <li>Add a README file</li>
+                            <li>Create and publish to GitHub</li>
+                        </ol>
+                    </div>
+
+                    <h3>📝 Making Changes Workflow</h3>
+                    <div class="code-block">
+                        1. Make changes to files
+                        2. Review changes in GitHub Desktop
+                        3. Write descriptive commit message
+                        4. Commit to current branch
+                        5. Push changes to remote repository
+                    </div>
+
+                    <div class="exercise">
+                        <strong>Exercise 2: Your First Commit</strong>
+                        <ol>
+                            <li>Create a new HTML file in your repository</li>
+                            <li>Add some basic HTML content</li>
+                            <li>Return to GitHub Desktop</li>
+                            <li>Review the changes shown</li>
+                            <li>Write a commit message: "Add basic HTML page"</li>
+                            <li>Commit and push changes</li>
+                        </ol>
+                    </div>
+
+                    <div class="homework">
+                        <strong>Homework Assignment 1</strong>
+                        <p>Create a personal portfolio repository with the following structure:</p>
+                        <ul>
+                            <li>README.md with project description</li>
+                            <li>index.html for your main page</li>
+                            <li>styles.css for styling</li>
+                            <li>images/ folder with a profile photo</li>
+                        </ul>
+                        <p>Make at least 5 meaningful commits showing your progress. Practice writing good commit
+                            messages!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figma Tab -->
+            <div id="figma" class="tab-content">
+                <div class="topic-section">
+                    <h2><span class="icon">🎨</span>Figma Design Tool</h2>
+
+                    <h3>Why Figma?</h3>
+                    <p>Figma is a cloud-based design tool that's perfect for UI/UX design, prototyping, and
+                        collaboration. It's free to start and runs in your browser!</p>
+
+                    <h3>🎯 Core Features</h3>
+                    <table class="demo-table">
+                        <thead>
+                            <tr>
+                                <th>Tool</th>
+                                <th>Shortcut</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Move Tool</td>
+                                <td>V</td>
+                                <td>Select and move objects</td>
+                            </tr>
+                            <tr>
+                                <td>Frame Tool</td>
+                                <td>F</td>
+                                <td>Create containers/artboards</td>
+                            </tr>
+                            <tr>
+                                <td>Rectangle</td>
+                                <td>R</td>
+                                <td>Draw rectangular shapes</td>
+                            </tr>
+                            <tr>
+                                <td>Text Tool</td>
+                                <td>T</td>
+                                <td>Add and edit text</td>
+                            </tr>
+                            <tr>
+                                <td>Pen Tool</td>
+                                <td>P</td>
+                                <td>Create custom shapes and paths</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>🎨 Design Principles</h3>
+                    <div class="demo-list">
+                        <ul>
+                            <li><strong>Hierarchy:</strong> Use size, color, and spacing to guide attention</li>
+                            <li><strong>Consistency:</strong> Maintain uniform spacing, colors, and typography</li>
+                            <li><strong>Alignment:</strong> Keep elements properly aligned for clean appearance</li>
+                            <li><strong>Contrast:</strong> Ensure text is readable and elements stand out</li>
+                            <li><strong>White Space:</strong> Use breathing room to improve readability</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise">
+                        <strong>Exercise 3: Design a Landing Page</strong>
+                        <ol>
+                            <li>Create a new Figma file</li>
+                            <li>Add a desktop frame (1440x1024)</li>
+                            <li>Design a header with navigation</li>
+                            <li>Add a hero section with title and CTA button</li>
+                            <li>Include a features section with icons</li>
+                            <li>Design a footer with contact info</li>
+                        </ol>
+                    </div>
+
+                    <h3>🔧 Advanced Features</h3>
+                    <div class="code-block">
+                        Components: Reusable design elements
+                        Auto Layout: Responsive design system
+                        Constraints: How elements resize
+                        Styles: Consistent colors and text styles
+                        Prototyping: Interactive connections
+                    </div>
+
+                    <div class="exercise">
+                        <strong>Exercise 4: Component System</strong>
+                        <ol>
+                            <li>Create a button component with variants</li>
+                            <li>Design a card component for content</li>
+                            <li>Build a navigation component</li>
+                            <li>Use components throughout your design</li>
+                            <li>Create a simple prototype with interactions</li>
+                        </ol>
+                    </div>
+
+                    <div class="homework">
+                        <strong>Homework Assignment 2</strong>
+                        <p>Design a complete mobile app interface:</p>
+                        <ul>
+                            <li>Create 3-5 screens (login, home, profile, etc.)</li>
+                            <li>Use a consistent color scheme and typography</li>
+                            <li>Build reusable components</li>
+                            <li>Add interactive prototyping between screens</li>
+                            <li>Export your design as developer handoff specs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HTML Tab -->
+            <div id="html" class="tab-content">
+                <div class="topic-section">
+                    <h2><span class="icon">📄</span>HTML Lists, Tables & Forms</h2>
+
+                    <h3>📋 HTML Lists</h3>
+                    <p>Lists are fundamental for organizing content. There are three types: ordered, unordered, and
+                        definition lists.</p>
+
+                    <div class="code-block">
+                        &lt;!-- Unordered List --&gt;
+                        &lt;ul class="feature-list"&gt;
+                        &lt;li&gt;Responsive design&lt;/li&gt;
+                        &lt;li&gt;Fast loading&lt;/li&gt;
+                        &lt;li&gt;SEO optimized&lt;/li&gt;
+                        &lt;/ul&gt;
+
+                        &lt;!-- Ordered List --&gt;
+                        &lt;ol class="steps"&gt;
+                        &lt;li&gt;Plan your project&lt;/li&gt;
+                        &lt;li&gt;Design the interface&lt;/li&gt;
+                        &lt;li&gt;Develop the code&lt;/li&gt;
+                        &lt;li&gt;Test thoroughly&lt;/li&gt;
+                        &lt;/ol&gt;
+
+                        &lt;!-- Definition List --&gt;
+                        &lt;dl class="glossary"&gt;
+                        &lt;dt&gt;HTML&lt;/dt&gt;
+                        &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+                        &lt;dt&gt;CSS&lt;/dt&gt;
+                        &lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;
+                        &lt;/dl&gt;
+                    </div>
+
+                    <h3>📊 HTML Tables</h3>
+                    <p>Tables display structured data in rows and columns. Always include proper headers for
+                        accessibility.</p>
+
+                    <div class="code-block">
+                        &lt;table class="data-table"&gt;
+                        &lt;thead&gt;
+                        &lt;tr&gt;
+                        &lt;th&gt;Name&lt;/th&gt;
+                        &lt;th&gt;Role&lt;/th&gt;
+                        &lt;th&gt;Experience&lt;/th&gt;
+                        &lt;th&gt;Location&lt;/th&gt;
+                        &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                        &lt;tr&gt;
+                        &lt;td&gt;Sarah Chen&lt;/td&gt;
+                        &lt;td&gt;Frontend Developer&lt;/td&gt;
+                        &lt;td&gt;5 years&lt;/td&gt;
+                        &lt;td&gt;San Francisco&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                        &lt;td&gt;Mike Rodriguez&lt;/td&gt;
+                        &lt;td&gt;UX Designer&lt;/td&gt;
+                        &lt;td&gt;3 years&lt;/td&gt;
+                        &lt;td&gt;New York&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                        &lt;/table&gt;
+                    </div>
+
+                    <h3>📝 HTML Forms</h3>
+                    <p>Forms collect user input. Always include proper labels and validation for accessibility and
+                        usability.</p>
+
+                    <div class="demo-form">
+                        <h4>Contact Form Example</h4>
+                        <form class="contact-form" onsubmit="handleSubmit(event)">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="role">Your Role</label>
+                                <select id="role" name="role">
+                                    <option value="">Select your role</option>
+                                    <option value="developer">Developer</option>
+                                    <option value="designer">Designer</option>
+                                    <option value="manager">Project Manager</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="experience">Experience Level</label>
+                                <input type="range" id="experience" name="experience" min="0" max="10" value="5">
+                                <small>0 = Beginner, 10 = Expert</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="4" required
+                                    placeholder="Tell us about your project..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="newsletter" value="yes">
+                                    Subscribe to our newsletter
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div class="code-block">
+                        &lt;form class="contact-form" action="/submit" method="POST"&gt;
+                        &lt;div class="form-group"&gt;
+                        &lt;label for="name"&gt;Full Name *&lt;/label&gt;
+                        &lt;input type="text" id="name" name="name" required
+                        placeholder="Enter your full name"&gt;
+                        &lt;/div&gt;
+
+                        &lt;div class="form-group"&gt;
+                        &lt;label for="email"&gt;Email Address *&lt;/label&gt;
+                        &lt;input type="email" id="email" name="email" required&gt;
+                        &lt;/div&gt;
+
+                        &lt;div class="form-group"&gt;
+                        &lt;label for="message"&gt;Message *&lt;/label&gt;
+                        &lt;textarea id="message" name="message" rows="4" required&gt;&lt;/textarea&gt;
+                        &lt;/div&gt;
+
+                        &lt;button type="submit" class="btn"&gt;Send Message&lt;/button&gt;
+                        &lt;/form&gt;
+                    </div>
+
+                    <div class="exercise">
+                        <strong>Exercise 5: Build a Complete Page</strong>
+                        <ol>
+                            <li>Create an HTML page with navigation using an unordered list</li>
+                            <li>Add a table showing project data</li>
+                            <li>Include a contact form with various input types</li>
+                            <li>Style everything with modern CSS</li>
+                            <li>Make it responsive for mobile devices</li>
+                        </ol>
+                    </div>
+
+                    <div class="homework">
+                        <strong>Homework Assignment 3</strong>
+                        <p>Create a complete business website with:</p>
+                        <ul>
+                            <li>Homepage with navigation menu (unordered list)</li>
+                            <li>About page with team table</li>
+                            <li>Services page with pricing table</li>
+                            <li>Contact page with comprehensive form</li>
+                            <li>Consistent styling and responsive design</li>
+                            <li>Upload to GitHub using GitHub Desktop</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resources Tab -->
+            <div id="resources" class="tab-content">
+                <div class="topic-section">
+                    <h2><span class="icon">📚</span>Additional Resources</h2>
+
+                    <div class="resources">
+                        <h3>🔧 GitHub Desktop Resources</h3>
+                        <ul>
+                            <li><a href="https://desktop.github.com/" target="_blank">GitHub Desktop Official Site</a>
+                            </li>
+                            <li><a href="https://docs.github.com/en/desktop" target="_blank">GitHub Desktop
+                                    Documentation</a></li>
+                            <li><a href="https://github.com/skills" target="_blank">GitHub Skills Interactive
+                                    Courses</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="resources">
+                        <h3>🎨 Figma Learning Resources</h3>
+                        <ul>
+                            <li><a href="https://www.figma.com/academy/" target="_blank">Figma Academy</a></li>
+                            <li><a href="https://www.figma.com/community" target="_blank">Figma Community Templates</a>
+                            </li>
+                            <li><a href="https://www.youtube.com/c/Figmadesign" target="_blank">Official Figma YouTube
+                                    Channel</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="resources">
+                        <h3>📄 HTML & CSS Resources</h3>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">MDN HTML
+                                    Documentation</a></li>
+                            <li><a href="https://www.w3schools.com/html/" target="_blank">W3Schools HTML Tutorial</a>
+                            </li>
+                            <li><a href="https://css-tricks.com/" target="_blank">CSS-Tricks</a></li>
+                        </ul>
+                    </div>
+
+                    <h3>💡 Quick Tips for Success</h3>
+                    <div class="demo-list">
+                        <ul>
+                            <li>Practice regularly - consistency beats intensity</li>
+                            <li>Join developer communities for support and networking</li>
+                            <li>Build projects that interest you personally</li>
+                            <li>Don't be afraid to experiment and make mistakes</li>
+                            <li>Keep learning new technologies as they emerge</li>
+                            <li>Document your learning journey and share your progress</li>
+                        </ul>
+                    </div>
+
+                    <h3>🎯 Next Steps</h3>
+                    <table class="demo-table">
+                        <thead>
+                            <tr>
+                                <th>Week</th>
+                                <th>Focus Area</th>
+                                <th>Goal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Week 1</td>
+                                <td>GitHub Workflow</td>
+                                <td>Complete 10 commits, create 2 repositories</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Figma Mastery</td>
+                                <td>Design 3 different interfaces</td>
+                            </tr>
+                            <tr>
+                                <td>Week 3</td>
+                                <td>HTML/CSS Practice</td>
+                                <td>Build 5 different page layouts</td>
+                            </tr>
+                            <tr>
+                                <td>Week 4</td>
+                                <td>Integration</td>
+                                <td>Combine all skills in one project</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="exercise">
+                        <strong>Final Challenge Project</strong>
+                        <p>Combine all your new skills:</p>
+                        <ol>
+                            <li><strong>Design Phase:</strong> Create a complete website design in Figma with multiple
+                                pages and interactive prototypes</li>
+                            <li><strong>Development Phase:</strong> Convert your Figma design to HTML/CSS with proper
+                                lists, tables, and forms</li>
+                            <li><strong>Version Control:</strong> Use GitHub Desktop to track your progress with
+                                meaningful commits</li>
+                            <li><strong>Collaboration:</strong> Share your repository and get feedback from peers</li>
+                            <li><strong>Deployment:</strong> Publish your site using GitHub Pages</li>
+                        </ol>
+                    </div>
+
+                    <h3>📋 Session Checklist</h3>
+                    <div class="demo-form">
+                        <h4>Mark your progress:</h4>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Installed and configured GitHub Desktop</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Created first repository and made commits</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Learned basic GitHub workflow</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Explored Figma interface and tools</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Created first design in Figma</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Built components and prototypes</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Mastered HTML lists, tables, and forms</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Applied modern CSS styling techniques</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Completed all exercises</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox"> Ready to tackle homework assignments</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-section">
+                    <h2><span class="icon">🎓</span>Certificate of Completion</h2>
+                    <div
+                        style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); border-radius: 15px; margin: 1rem 0;">
+                        <h3 style="margin-bottom: 1rem; color: #8b4513;">Web Development & Design Mentorship</h3>
+                        <p style="font-size: 1.2rem; margin-bottom: 1rem; color: #654321;">This certifies that</p>
+                        <div
+                            style="border-bottom: 2px solid #8b4513; margin: 1rem 2rem; padding: 0.5rem; font-size: 1.3rem; font-weight: bold; color: #654321;">
+                            [Your Name Here]</div>
+                        <p style="margin-bottom: 1rem; color: #654321;">has successfully completed the 2-hour intensive
+                            mentorship session covering GitHub Desktop, Figma Design Tool, and HTML fundamentals</p>
+                        <div style="font-size: 0.9rem; color: #8b4513;">Date: ________________</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+
+            // Update progress bar
+            updateProgress(tabId);
+        }
+
+        function updateProgress(tabId) {
+            const progressBar = document.getElementById('progress');
+            const progressMap = {
+                'overview': '20%',
+                'github': '40%',
+                'figma': '60%',
+                'html': '80%',
+                'resources': '100%'
+            };
+
+            if (progressBar) {
+                progressBar.style.width = progressMap[tabId] || '0%';
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Great job! In a real application, this form would be submitted to a server.');
+        }
+
+        // Auto-update progress when page loads
+        window.addEventListener('load', function () {
+            updateProgress('overview');
+        });
+
+        // Add some interactive elements
+        document.querySelectorAll('.exercise').forEach(exercise => {
+            exercise.addEventListener('click', function () {
+                this.style.transform = this.style.transform === 'scale(1.02)' ? 'scale(1)' : 'scale(1.02)';
+            });
+        });
+
+        // Add completion tracking for checkboxes
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    this.parentElement.style.backgroundColor = '#d4edda';
+                    this.parentElement.style.borderRadius = '5px';
+                    this.parentElement.style.padding = '5px';
+                } else {
+                    this.parentElement.style.backgroundColor = '';
+                    this.parentElement.style.borderRadius = '';
+                    this.parentElement.style.padding = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
